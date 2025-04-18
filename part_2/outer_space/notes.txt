@@ -1,0 +1,30 @@
+Outer Space - Schema Critique Notes
+
+Original Issues Identified:
+Moons were stored as a TEXT[] array, which breaks normalization and limits future scalability.
+
+Planets table included galaxy and orbital relationships as plain text, which could cause inconsistency or duplication across entries.
+
+Schema Improvements Made:
+Created a moons table with a foreign key referencing planets. This allows better tracking and avoids array limitations.
+
+Created a stars table to represent the object each planet orbits around. This normalizes the "orbits_around" field.
+
+Created a galaxies table to normalize the galaxy data and allow linking multiple stars or planets to one galaxy.
+
+File Breakdown:
+outer_space_ddl.sql: Contains all CREATE TABLE statements for the improved schema.
+
+outer_space_improved_seed.sql: Contains seed data for galaxies, stars, planets, and moons.
+
+outer_space_original.sql: Original file provided for comparison.
+
+notes.txt: This file! Summarizes changes and rationale.
+
+Potential Future Enhancements:
+Add fields like mass, radius, or atmospheric composition to planets.
+
+Link stars to galaxies with more detailed star data (type, temperature, etc...).
+
+Include a planet_type table (e.g., terrestrial, gas giant, etc...).
+
