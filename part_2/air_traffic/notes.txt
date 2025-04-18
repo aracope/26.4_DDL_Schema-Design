@@ -1,0 +1,48 @@
+Air Traffic - Schema Critique Notes
+
+ORIGINAL ISSUES IDENTIFIED:
+- Original seed contained sparse or no data, limiting the ability to test SQL joins, subqueries, and constraints.
+
+- Foreign key values were hardcoded or assumed, risking integrity issues and making the data brittle.
+
+- There was insufficient variety in the data to reflect realistic travel routes or passenger behaviors.
+
+- SEEDING GOALS:
+  * Populate the `airline`, `location`, and `passenger` tables with meaningful, diverse entries.
+
+  * Ensure all `ticket` inserts correctly reference other tables using `SELECT` subqueries for dynamic foreign key resolution.
+
+  * Reflect varied routes, airlines, and times to allow testing of different query conditions.
+
+  * Add multiple flights per passenger where applicable to enable analysis of travel patterns.
+
+SCHEMA IMPROVEMENTS MADE:
+- Normalization of Passenger Info: Moved first_name and last_name into a separate passenger table to avoid redundant data across multiple tickets for the same person.
+
+- Separated Airline Details: Created an airline table to reduce repetition of airline names and allow future expansion (e.g., airline codes or contact info).
+
+- Created a location Table: Consolidated city and country into a reusable location table. This reduces duplication and provides a clean reference for both origin and destination.
+
+- Refactored tickets Table: Now references passenger, airline, from_location, and to_location via foreign keys.
+
+- Cleaned up structure to enable easier queries, better scalability, and data integrity.
+
+FILE BREAKDOWN:
+- TABLES SEEDED:
+  * `airline`: 7 airlines from multiple countries.
+  * `location`: 18 unique locations spanning several continents.
+  * `passenger`: 7 passengers with distinct names.
+  * `ticket`: 10 total ticket entries, with complex routing for some passengers.
+
+- Subqueries used in `ticket` inserts to ensure reliable foreign key references.
+
+- Dates and times selected to reflect realistic travel scenarios (layovers, multi-leg trips).
+
+- Locations chosen to give geographic and linguistic diversity for testing broader applications.
+
+POTENTIAL FUTURE ENHANCEMENTS:
+- Add flight numbers, prices, or booking status columns.
+
+- Introduce a `flight` table to decouple routes from individual tickets.
+
+- Create user-defined functions or views for frequent traveler data, popular routes/flights, etc...
