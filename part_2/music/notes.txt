@@ -1,0 +1,46 @@
+Music - Schema Critique Notes
+
+ORIGINAL ISSUES IDENTIFIED:
+- The original schema stored artists and producers as arrays, making queries and filtering more complex.
+
+- All metadata (artists, producers, albums) was embedded directly in the `songs` table, leading to redundancy.
+
+- There were no foreign key relationships to enforce data integrity.
+
+- Seed data used inconsistent formatting and lacked normalization, limiting relational analysis.
+
+GOALS FOR SEED DATA IMPROVEMENT:
+- Normalize artists, albums, and producers into separate tables to support relational design.
+
+- Create many-to-many relationships for artists and producers to accurately reflect real-world music collaborations.
+
+- Seed the database with diverse, recognizable data spanning decades and genres.
+
+- Support complex queries (e.g. all songs by a producer, all songs on an album, collaborations between artists).
+
+SCHEMA IMPROVEMENTS MADE:
+- Artists, producers, and albums now have their own tables for better normalization and reuse.
+
+- Songs are linked via foreign keys to albums.
+
+- Many-to-many join tables were created for song-to-artist and song-to-producer relationships.
+
+- Seed data now reflects real-world relationships between entities and avoids repetition.
+
+FILE BREAKDOWN:
+- TABLES:
+  * `artist`: 15 artists
+  * `producer`: 13 producers
+  * `album`: 10 albums
+  * `song`: 10 songs
+  * `song_artist`
+  * `song_producer`
+    -* All songs mapped to their respective artists and producers
+- Design enables filtering by artist, producer, album, or time range.
+
+POTENTIAL FUTURE ENHANCEMENTS:
+- Add genre classification and track numbers.
+
+- Track chart performance or awards data.
+
+- Create views for “top collaborations” or “songs with most producers.”
